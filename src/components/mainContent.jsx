@@ -4,7 +4,7 @@ import {useState } from "react";
 //components
 import IngredientList from "./ingredientList";
 import Chef from "./chef";
-import getRecipefromMistral from '../aichef'
+import getRecipefromGemini from '../aichef'
 
 
 export default function Main () {
@@ -27,7 +27,7 @@ export default function Main () {
 
     //getting recipe 
     async function getRecipe() {
-        const airecipe = await getRecipefromMistral(ingredientList);
+        const airecipe = await getRecipefromGemini(ingredientList);
         console.log(airecipe);
         setRecipeShown(airecipe)
     }
