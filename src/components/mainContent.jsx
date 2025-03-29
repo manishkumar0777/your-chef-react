@@ -1,4 +1,4 @@
-import {useState } from "react";
+import {useEffect, useRef, useState } from "react";
 
 
 //components
@@ -11,6 +11,14 @@ export default function Main () {
 
     const [ingredientList, setIngredientList] = useState([]);
     const [recipeShown, setRecipeShown] = useState('');
+    const recipeAvaiable = useRef(null);
+
+    //scrolling recipe when its available
+    useEffect(() => {
+        if(recipeShown.length !== 0 && recipeAvaiable !== null) {
+            recipeAvaiable.current.scrollIntoView({behavior : "smooth"})
+        }
+    },[recipeShown]);
 
 
     //add ingredient action
@@ -45,7 +53,7 @@ export default function Main () {
                 <button>+ Add ingredients</button>
             </form>
 
-            {ingredientList.length > 0 ? <IngredientList ingredientList={ingredientList} recipeButton={getRecipe}/>: null}
+            {ingredientList.length > 0 ? <IngredientList ingredientList={ingredientList} recipeButton={getRecipe} ref={recipeAvaiable}/>: null}
             
 
             { recipeShown && <Chef genRecipe={recipeShown}/>}
